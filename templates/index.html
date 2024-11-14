@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Fitness website
+{% endblock %}
+
+{% block content %}
+    <div class="video-banner">
+        <img src="{{ url_for('static', filename='images/upper-body.jpg') }}" alt="Kathak Dance" class="gif-banner" style=" width: 100%; height: 55vh; object-fit: cover;   object-position: center; ">
+        <div class="overlay"></div>
+        <div class="banner-content">
+        <h1>Kathak</h1>
+        <p> Kathak dance has a traditional and cultural heritage that gives it the status of the Indian classical dance form.</p>
+        <div class="buttons">
+            <a href="#" class="btn">Start</a>
+            <a href="#" class="btn">Learn More</a>
+        </div>
+        </div>
+    </div>
+  {% endblock %}

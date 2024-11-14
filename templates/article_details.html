@@ -1,0 +1,445 @@
+{% extends "layout.html" %}
+
+{% block title %}
+{{ article['title'] }}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="content-wrapper">
+        <p class="card-category">{{ article['category'].upper() }}</p>
+        <h1 class="card-article-title">{{ article['title'] }}</h1>
+        <p class="date"><em>Created at: {{ created_at }}</em></p>
+        
+        <div class="media-container text-center">
+            <video controls class="media-player">
+                <source src="{{ url_for('static', filename=article.image_path) }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
+        <div class="article-content mt-4">
+            {% for paragraph in paragraphs %}
+                <p>{{ paragraph }}</p>
+            {% endfor %}
+        </div>
+
+        <h2>Footwork Steps</h2>
+        <p>Drag and rearrange the steps as you practice:</p>
+        
+        <!-- Real-time camera access button -->
+        <button id="camera-access-btn" class="btn articles-btn">Enable Camera for Practice</button>
+
+        <div id = "fullscreen-modal" class = "fullscreen-modal" style = "display : none;">
+            <span id = "close-model" class ="close-modal">&times;</span>
+            <img id = "fullscreen-gif" src ="" alt ="Full-Screen Step GIF">
+        </div> 
+        
+        <div id="steps-container">
+            <p> Tatkaar (Footwork) Step Breakdown</p> 
+            
+            <div class="step" draggable="true" data-voice-text="यह एक बेसिक कदम है जिसमें हमें दाएं पैर का उपयोग करना है। अब हम जानेंगे कि कैसे करना है: दाएं पैर को उठाकर ज़मीन पर टैप करें।
+                In English: This is a basic step where we use the right foot. Now let’s learn how to do it: lift your right foot and tap it on the ground.">
+                Step 1: Ta - Right Foot (Lift your right foot and tap it on the ground.)
+                <span class="speaker-icon" id="speaker1" onclick="toggleSound(this)" ondblclick="toggleSound(this)">🔊</span>
+                <img src="{{ url_for('static', filename='images/articles/step1(Ta).gif') }}" alt="Step 1 GIF" class="step-gif" onclick="openFullscreen(this)">
+                <span class="fullscreen-icon" onclick="openFullscreen(this.previousElementSibling)">🔍</span>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step" draggable="true" data-voice-text="यह दूसरा कदम है जिसमें हमें बाएं पैर का उपयोग करना है। अब हम सीखेंगे कि इसे कैसे करना है: बाएं पैर को उठाएं और ज़मीन पर टैप करें।
+                In English: This is the second step where we use the left foot. Now let’s learn how to do it: lift your left foot and tap it on the ground.">
+                Step 2: Thei - Left Foot (Lift your left foot and tap it on the ground.)
+                <span class="speaker-icon" id="speaker2" onclick="toggleSound(this)">🔊</span>
+                <img src="{{ url_for('static', filename='images/articles/step2(Tai).gif') }}" alt="Step 2 GIF" class="step-gif" onclick="openFullscreen(this)">
+                <span class="fullscreen-icon" onclick="openFullscreen(this.previousElementSibling)">🔍</span>
+            </div>
+            
+            <div class = "step" draggable="true" data-voice-text="यह तीसरा कदम है जिसमें हमें फिर से दाएं पैर का उपयोग करना है। अब हम सीखेंगे कि इसे कैसे करना है: दाएं पैर को फिर से उठाएं और ज़मीन पर टैप करें।
+                In English: This is the third step where we use the right foot again. Now let’s learn how to do it: lift your right foot again and tap it on the ground.">
+                Step 3: Thei - Right Foot (Lift your right foot again and tap it on the ground.)
+                <span class ="speaker-icon" id = "speaker3" onclick ="toggleSound(this)">🔊</span>
+                <img src="{{ url_for('static', filename='images/articles/step3(Tai).gif') }}" alt="Step 2 GIF" class="step-gif" onclick="openFullscreen(this)">
+                <span class="fullscreen-icon" onclick="openFullscreen(this.previousElementSibling)">🔍</span> 
+            </div>
+
+            <div class="step" draggable="true" data-voice-text="यह चौथा कदम है जिसमें हमें बाएं पैर का उपयोग करना है। अब हम सीखेंगे कि इसे कैसे करना है: बाएं पैर को उठाएं और ज़मीन पर टैप करें।
+                In English: This is the fourth step where we use the left foot. Now let’s learn how to do it: lift your left foot and tap it on the ground.">
+                Step 4: Tat - Left Foot (Lift your left foot and tap it on the ground.)
+                <span class="speaker-icon" id="speaker4" onclick="toggleSound(this)" ondblclick="toggleSound(this)">🔊</span>
+                <img src="{{ url_for('static', filename='images/articles/step_1(Tatkaar).gif') }}" alt="Step 4 GIF" class="step-gif" onclick="openFullscreen(this)">
+                <span class="fullscreen-icon" onclick="openFullscreen(this.previousElementSibling)">🔍</span>
+            </div>
+
+            <div class="step" draggable="true" data-voice-text="यह पाँचवां कदम है जिसमें हमें बाएं पैर का उपयोग करना है। अब हम सीखेंगे कि इसे कैसे करना है: बाएं पैर को उठाएं और ज़मीन पर टैप करें।
+                In English: This is the fifth step where we use the left foot. Now let’s learn how to do it: lift your left foot and tap it on the ground.">
+                Step 5: Aa - Left Foot (Lift your left foot and tap it on the ground.)
+                <span class="speaker-icon" id="speaker5" onclick="toggleSound(this)" ondblclick="toggleSound(this)">🔊</span>
+                <img src="{{ url_for('static', filename='images/articles/step_1(Tatkaar).gif') }}" alt="Step 5 GIF" class="step-gif" onclick="openFullscreen(this)">
+                <span class="fullscreen-icon" onclick="openFullscreen(this.previousElementSibling)">🔍</span>
+            </div>
+
+            <div class="step" draggable="true" data-voice-text="यह छठा कदम है जिसमें हमें दाएं पैर का उपयोग करना है। अब हम सीखेंगे कि इसे कैसे करना है: दाएं पैर को उठाएं और ज़मीन पर टैप करें।
+                In English: This is the sixth step where we use the right foot. Now let’s learn how to do it: lift your right foot and tap it on the ground.">
+                Step 6: Thei - Right Foot (Lift your right foot and tap it on the ground.)
+                <span class="speaker-icon" id="speaker6" onclick="toggleSound(this)" ondblclick="toggleSound(this)">🔊</span>
+                <img src="{{ url_for('static', filename='images/articles/step_1(Tatkaar).gif') }}" alt="Step 6 GIF" class="step-gif" onclick="openFullscreen(this)">
+                <span class="fullscreen-icon" onclick="openFullscreen(this.previousElementSibling)">🔍</span>
+            </div>
+
+            <div class="step" draggable="true" data-voice-text="यह सातवां कदम है जिसमें हमें बाएं पैर का उपयोग करना है। अब हम सीखेंगे कि इसे कैसे करना है: बाएं पैर को फिर से उठाएं और ज़मीन पर टैप करें।
+                In English: This is the seventh step where we use the left foot again. Now let’s learn how to do it: lift your left foot again and tap it on the ground.">
+                Step 7: Thei - Left Foot (Lift your left foot again and tap it on the ground.)
+                <span class="speaker-icon" id="speaker7" onclick="toggleSound(this)" ondblclick="toggleSound(this)">🔊</span>
+                <img src="{{ url_for('static', filename='images/articles/step_1(Tatkaar).gif') }}" alt="Step 7 GIF" class="step-gif" onclick="openFullscreen(this)">
+                <span class="fullscreen-icon" onclick="openFullscreen(this.previousElementSibling)">🔍</span>
+            </div>
+
+            <div class="step" draggable="true" data-voice-text="यह आठवां कदम है जिसमें हमें दाएं पैर का उपयोग करना है। अब हम सीखेंगे कि इसे कैसे करना है: दाएं पैर को उठाएं और ज़मीन पर टैप करें।
+                In English: This is the eighth step where we use the right foot. Now let’s learn how to do it: lift your right foot and tap it on the ground.">
+                Step 8: Tat - Right Foot (Lift your right foot and tap it on the ground.)
+                <span class="speaker-icon" id="speaker8" onclick="toggleSound(this)" ondblclick="toggleSound(this)">🔊</span>
+                <img src="{{ url_for('static', filename='images/articles/step_1(Tatkaar).gif') }}" alt="Step 8 GIF" class="step-gif" onclick="openFullscreen(this)">
+                <span class="fullscreen-icon" onclick="openFullscreen(this.previousElementSibling)">🔍</span>
+            </div>
+            Now, repeat this entire sequence again:
+            <div class="step" draggable="true" data-voice-text="यह नौंवा कदम है जिसमें हमें दाएं पैर का उपयोग करना है।
+                In English: This is the ninth step using the right foot.">
+                Step 9: Ta - Right Foot
+                <span class="speaker-icon" id="speaker9" onclick="toggleSound(this)" ondblclick="toggleSound(this)">🔊</span>
+                <img src="{{ url_for('static', filename='images/articles/step_1(Tatkaar).gif') }}" alt="Step 9 GIF" class="step-gif" onclick="openFullscreen(this)">
+                <span class="fullscreen-icon" onclick="openFullscreen(this.previousElementSibling)">🔍</span>
+            </div>
+            
+            <div class="step" draggable="true" data-voice-text="यह दसवां कदम है जिसमें हमें दाएं पैर का उपयोग करना है। अब हम सीखेंगे कि इसे कैसे करना है: दाएं पैर को उठाएं और ज़मीन पर टैप करें।
+                In English: This is the tenth step where we use the right foot. Lift your right foot and tap it on the ground.">
+                Step 10: Thei - Right Foot (Lift your right foot and tap it on the ground.)
+                <span class="speaker-icon" id="speaker10" onclick="toggleSound(this)" ondblclick="toggleSound(this)">🔊</span>
+                <img src="{{ url_for('static', filename='images/articles/step_1(Tatkaar).gif') }}" alt="Step 10 GIF" class="step-gif" onclick="openFullscreen(this)">
+                <span class="fullscreen-icon" onclick="openFullscreen(this.previousElementSibling)">🔍</span>
+            </div>
+            
+            <div class="step" draggable="true" data-voice-text="यह ग्यारहवां कदम है जिसमें हमें बाएं पैर का उपयोग करना है। अब हम सीखेंगे कि इसे कैसे करना है: बाएं पैर को फिर से उठाएं और ज़मीन पर टैप करें।
+                In English: This is the eleventh step using the left foot again. Lift your left foot again and tap it on the ground.">
+                Step 11: Thei - Left Foot (Lift your left foot again and tap it on the ground.)
+                <span class="speaker-icon" id="speaker11" onclick="toggleSound(this)" ondblclick="toggleSound(this)">🔊</span>
+                <img src="{{ url_for('static', filename='images/articles/step_1(Tatkaar).gif') }}" alt="Step 11 GIF" class="step-gif" onclick="openFullscreen(this)">
+                <span class="fullscreen-icon" onclick="openFullscreen(this.previousElementSibling)">🔍</span>
+            </div>
+            
+            <div class="step" draggable="true" data-voice-text="यह बारहवां कदम है जिसमें हमें दाएं पैर का उपयोग करना है। अब हम सीखेंगे कि इसे कैसे करना है: दाएं पैर को उठाएं और ज़मीन पर टैप करें।
+                In English: This is the twelfth step using the right foot. Lift your right foot and tap it on the ground.">
+                Step 12: Tat - Right Foot (Lift your right foot and tap it on the ground.)
+                <span class="speaker-icon" id="speaker12" onclick="toggleSound(this)" ondblclick="toggleSound(this)">🔊</span>
+                <img src="{{ url_for('static', filename='images/articles/step_1(Tatkaar).gif') }}" alt="Step 12 GIF" class="step-gif" onclick="openFullscreen(this)">
+                <span class="fullscreen-icon" onclick="openFullscreen(this.previousElementSibling)">🔍</span>
+            </div>
+            
+            <div class="step" draggable="true" data-voice-text="यह तेरहवां कदम है जिसमें हमें बाएं पैर का उपयोग करना है।
+                In English: This is the thirteenth step using the left foot.">
+                Step 13: Aa - Left Foot
+                <span class="speaker-icon" id="speaker13" onclick="toggleSound(this)" ondblclick="toggleSound(this)">🔊</span>
+                <img src="{{ url_for('static', filename='images/articles/step_1(Tatkaar).gif') }}" alt="Step 13 GIF" class="step-gif" onclick="openFullscreen(this)">
+                <span class="fullscreen-icon" onclick="openFullscreen(this.previousElementSibling)">🔍</span>
+            </div>
+            
+            <div class="step" draggable="true" data-voice-text="यह चौदहवां कदम है जिसमें हमें दाएं पैर का उपयोग करना है।
+                In English: This is the fourteenth step using the right foot.">
+                Step 14: Thei - Right Foot
+                <span class="speaker-icon" id="speaker14" onclick="toggleSound(this)" ondblclick="toggleSound(this)">🔊</span>
+                <img src="{{ url_for('static', filename='images/articles/step_1(Tatkaar).gif') }}" alt="Step 14 GIF" class="step-gif" onclick="openFullscreen(this)">
+                <span class="fullscreen-icon" onclick="openFullscreen(this.previousElementSibling)">🔍</span>
+            </div>
+            
+            <div class="step" draggable="true" data-voice-text="यह पंद्रहवां कदम है जिसमें हमें बाएं पैर का उपयोग करना है।
+                In English: This is the fifteenth step using the left foot.">
+                Step 15: Thei - Left Foot
+                <span class="speaker-icon" id="speaker15" onclick="toggleSound(this)" ondblclick="toggleSound(this)">🔊</span>
+                <img src="{{ url_for('static', filename='images/articles/step_1(Tatkaar).gif') }}" alt="Step 15 GIF" class="step-gif" onclick="openFullscreen(this)">
+                <span class="fullscreen-icon" onclick="openFullscreen(this.previousElementSibling)">🔍</span>
+            </div>
+            
+            <div class="step" draggable="true" data-voice-text="यह सोलहवां कदम है जिसमें हमें दाएं पैर का उपयोग करना है।
+                In English: This is the sixteenth step using the right foot.">
+                Step 16: Tat - Right Foot
+                <span class="speaker-icon" id="speaker16" onclick="toggleSound(this)" ondblclick="toggleSound(this)">🔊</span>
+                <img src="{{ url_for('static', filename='images/articles/step_1(Tatkaar).gif') }}" alt="Step 16 GIF" class="step-gif" onclick="openFullscreen(this)">
+                <span class="fullscreen-icon" onclick="openFullscreen(this.previousElementSibling)">🔍</span>
+            </div>
+        </div>
+            
+            <button id="save-sequence-btn" class="btn articles-btn">Save Sequence</button>
+            
+            <a href="{{ url_for('articles') }}" class="btn articles-btn">Back to Articles</a>
+        </div>
+    </div>
+
+<script src="https://code.responsivevoice.org/responsivevoice.js?key=X9h6JDZa"></script>
+
+<!-- Drag-and-Drop JavaScript -->
+<script>
+    const stepsContainer = document.getElementById('steps-container');
+    let draggedElement = null;
+
+    document.querySelectorAll('.step').forEach(step => {
+        step.addEventListener('dragstart', (e) => {
+            draggedElement = step;
+            setTimeout(() => step.classList.add('invisible'), 0);
+        });
+
+        
+
+        step.addEventListener('dragend', () => {
+            setTimeout(() => draggedElement.classList.remove('invisible'), 0);
+            draggedElement = null;
+        });
+
+        step.addEventListener('dragover', (e) => e.preventDefault());
+
+        step.addEventListener('dragenter', function (e) {
+            e.preventDefault();
+            this.classList.add('hovered');
+        });
+
+        step.addEventListener('dragleave', () => this.classList.remove('hovered'));
+
+        step.addEventListener('drop', function () {
+            if (draggedElement !== this) {
+                stepsContainer.insertBefore(draggedElement, this.nextSibling);
+                this.classList.remove('hovered');
+            }
+        });
+    });
+
+    // Save Sequence Functionality
+    document.getElementById('save-sequence-btn').addEventListener('click', () => {
+        const steps = Array.from(document.querySelectorAll('.step')).map(step => step.textContent);
+        alert('Current Step Order:\n' + steps.join('\n'));
+    });
+
+    document.getElementById('camera-access-btn').addEventListener('click', () => {
+        // Use media devices API to access the camera
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                const videoElement = document.createElement('video');
+                videoElement.srcObject = stream;
+                videoElement.play();
+                document.body.appendChild(videoElement); // Display camera feed
+            })
+            .catch(error => alert("Camera access denied or unavailable"));
+    });
+
+
+    // Open GIF in full-screen modal
+    function openFullscreen(gif) {
+        const modal = document.getElementById('fullscreen-modal');
+        const fullscreenGif = document.getElementById('fullscreen-gif');
+        fullscreenGif.src = gif.src;
+        modal.style.display = 'flex';
+    }
+
+    // Close the full-screen modal
+    document.getElementById('close-modal').onclick = function () {
+        document.getElementById('fullscreen-modal').style.display = 'none';
+    }
+
+    // Close modal when clicking outside the image
+    window.onclick = function(event) {
+        const modal = document.getElementById('fullscreen-modal');
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    function toggleSound(element) {
+        const voiceText = element.parentElement.getAttribute("data-voice-text"); // Get the full text from data-voice-text attribute
+        const isMuted = element.classList.contains("muted");
+
+        if (isMuted) {
+            element.classList.remove("muted");
+            playVoice(voiceText, element); // Pass the full text to the playVoice function
+        } else {
+            element.classList.add("muted");
+            stopVoice();
+        }
+    }
+
+    function playVoice(voiceText, element) {
+        if (!element.classList.contains("muted")) {
+            responsiveVoice.speak(voiceText, "Hindi Female", {
+                pitch: 1.2,    // Slightly adjust pitch for more natural tone
+                rate: 0.95,    // Slightly slower rate
+                volume: 1,     // Normal volume
+                onend: function () {
+                    if (!element.classList.contains("muted")) {
+                        responsiveVoice.speak(voiceText, "Hindi Female");
+                    }
+                }
+            });
+        }
+    }
+
+</script>
+
+<!-- Enhanced Styling -->
+<style>
+    /* Page Background */
+    body {
+        background: linear-gradient(to right, #f7f7f7, #e2e2e2);
+    }
+
+    /* Content Container */
+    .container {
+        max-width: 900px;
+        margin: auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Headings and Categories */
+    .card-category {
+        font-weight: bold;
+        color: #6c757d;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+    .card-article-title {
+        font-size: 2rem;
+        color: #333;
+    }
+    .date {
+        color: #666;
+    }
+
+    /* Video Styling */
+    .media-container {
+        margin-top: 20px;
+    }
+    .media-player {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Steps Container and Dragging Effect */
+    #steps-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
+        padding: 15px;
+        background: #fafafa;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    .step {
+        padding: 15px;
+        font-weight: bold;
+        color: #444;
+        background: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        cursor: move;
+        transition: all 0.3s;
+    }
+    .step:hover {
+        background: #e8f4ff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    .step.hovered {
+        background: #d6e9ff;
+        border-color: #007bff;
+    }
+    .step.invisible {
+        opacity: 0;
+    }
+    .articles-btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        color: #fff;
+        background-color: #007bff;
+        border-radius: 8px;
+        text-align: center;
+        transition: background-color 0.3s ease;
+    }
+    .articles-btn:hover {
+        background-color: #0056b3;
+    }
+
+
+    .step {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .step-gif {
+        width: 100px;
+        height: auto;
+        border-radius: 5px;
+        margin-left: 10px;
+    }
+    /* Full-Screen Modal */
+    .fullscreen-modal {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        z-index: 1000;
+    }
+
+    #fullscreen-gif {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 10px;
+    }
+
+    .close-modal {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        color: #fff;
+        font-size: 40px;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    /* Full-screen icon next to GIF */
+    .fullscreen-icon {
+        font-size: 24px;
+        cursor: pointer;
+        color: #007bff;
+        margin-left: 10px;
+    }
+
+
+    .speaker-icon {
+    cursor: pointer;
+    font-size: 20px;
+    /* margin-left: 8px;
+     */
+     transition: tranform 0.2s;
+}
+.speaker-icon.muted {
+    content: "🔇"; /* Change the icon to mute */
+}
+
+.speaker-icon:not(.muted) {
+    content: "🔊"; /* Default speaker icon for unmuted state */
+}
+
+
+</style>
+{% endblock %}

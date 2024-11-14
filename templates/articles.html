@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Articles
+{% endblock %}
+
+{% block content %}
+    <div class="container articlesContainer">
+        <h1>KATHAK</h1>
+        <p>The term Kathak is derived from the Vedic Sanskrit word ‘Katha’ which means "story", and Kathakar which means "the one who tells a story". 
+            </p><p>Wandering Kathakars or the traveling bards conveyed tales, inspired by our ancient epics and mythologies, through dance, songs, and music.  
+            </p><p>Kathak performers exhibit stories through graceful hand movements, extensive footwork, flexible body movements, and most importantly intense facial expressions capable of evoking a range of emotions. Kathak evolved during the Bhakti movement and incorporated stories revolving around the Hindu deity Krishna and his childhood.</p>
+        {% if total_articles > 0 %}
+            <div class="total-articles">Dance : {{ total_articles }}</div>
+            <div class="row">
+                {% for article in articles %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <video controls class="card-img-top" style="height: 200px; object-fit: cover;">
+                                <source src="{{ url_for('static', filename=article.image_path) }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+
+                            <div class="card-body">
+                                <p class="card-category card-highlight">{{ article.category.upper() }}</p>
+                                <h5 class="card-title card-article-title">{{ article.title }}</h5>
+                                <p class="card-text">{{ article.content[:65] }}{% if article.content|length > 65 %}...{% endif %}</p>
+                                <a href="{{ url_for('show_article', article_id=article.id) }}" class="btn articles-btn">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination links -->
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center">
+                    {% if pagination > 1 %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('articles', page=pagination - 1) }}">Previous</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">Previous</span>
+                        </li>
+                    {% endif %}
+
+                    {% for page_num in range(1, (total_articles // ARTICLES_PER_PAGE) + 2) %}
+                        {% if pagination == page_num %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ page_num }} <span class="sr-only">(current)</span></span>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="{{ url_for('articles', page=page_num) }}">{{ page_num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if pagination < total_articles // ARTICLES_PER_PAGE %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('articles', page=pagination + 1) }}">Next</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">Next</span>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% else %}
+            <p>No articles available.</p>
+        {% endif %}
+    </div>
+{% endblock %}
